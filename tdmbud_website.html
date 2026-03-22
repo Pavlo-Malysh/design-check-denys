@@ -1,0 +1,3621 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDM BUD — Ремонт квартир під ключ у Чернівцях</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============================================================
+   TDM BUD — ДИЗАЙН-СИСТЕМА (Design Tokens)
+   ============================================================ */
+    :root {
+      --ch: #1A1A1A;
+      /* Charcoal — основний темний */
+      --ww: #F5F0EA;
+      /* Warm White */
+      --cr: #EDE8E0;
+      /* Cream — поверхня */
+      --gd: #B8944A;
+      /* Gold — акцент */
+      --gl: #D4AD6A;
+      /* Gold Light */
+      --gdk: #8A6E32;
+      /* Gold Dark */
+      --sl: #3D3D3D;
+      /* Slate — вторинний текст */
+      --md: #6B6461;
+      /* Mid — підписи */
+      --bd: #D8D2C8;
+      /* Border */
+      --sf: #FDFAF6;
+      /* Surface — фон сторінки */
+      --acc: #C4753A;
+      /* Accent orange */
+      --grn: #4A6741;
+      /* Forest green */
+
+      --fd: 'Cormorant Garamond', Georgia, serif;
+      --fb: 'DM Sans', system-ui, sans-serif;
+
+      --r2: 2px;
+      --r4: 4px;
+      --r8: 8px;
+    }
+
+    /* ── Reset ── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--fb);
+      background: var(--sf);
+      color: var(--ch);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: var(--fb);
+      border: none;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: var(--fb);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── Utilities ── */
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gd);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gd);
+    }
+
+    .section-title {
+      font-family: var(--fd);
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--ch);
+    }
+
+    .backBtn {
+      color: red;
+      background-color: yellow;
+      width: 60px;
+      height: 25px;
+      padding: 10px 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 30px;
+      border-radius: var(--r2);
+      transition: opacity .2s, transform .15s;
+    }
+
+    .btn:hover {
+      opacity: .88;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn-gold {
+      background: var(--gd);
+      color: var(--ch);
+    }
+
+    .btn-dark {
+      background: var(--ch);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ch);
+      border: 1.5px solid var(--ch);
+    }
+
+    .btn-outline-w {
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255, 255, 255, .32);
+    }
+
+    .btn-outline-g {
+      background: transparent;
+      color: var(--gd);
+      border: 1.5px solid var(--gd);
+    }
+
+    /* ── Smooth scroll offset for sticky nav ── */
+    section {
+      scroll-margin-top: 68px;
+    }
+
+
+    /* ============================================================
+   NAVIGATION
+   ============================================================ */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--ch);
+      height: 68px;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      transition: box-shadow .3s;
+    }
+
+    #navbar.scrolled {
+      box-shadow: 0 4px 32px rgba(0, 0, 0, .4);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-right: 48px;
+    }
+
+    .logo-hex {
+      width: 38px;
+      height: 38px;
+      background: var(--gd);
+      flex-shrink: 0;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-hex span {
+      font-family: var(--fd);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ch);
+    }
+
+    .logo-name {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .06em;
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .35);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .52);
+      transition: color .2s;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .nav-links a.active {
+      color: var(--gl);
+      border-color: var(--gl);
+    }
+
+    .nav-cta {
+      margin-left: auto;
+    }
+
+
+    /* ============================================================
+   SECTION 1 — HERO
+   ============================================================ */
+    #hero {
+      background: var(--ch);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-pattern {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(184, 148, 74, .055) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(184, 148, 74, .055) 80px);
+    }
+
+    .hero-left {
+      padding: 80px 60px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--fd);
+      font-size: 70px;
+      font-weight: 700;
+      line-height: .9;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gl);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, .58);
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(135deg, #2A2520 0%, #3D3530 45%, #2A2520 100%);
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg,
+          rgba(184, 148, 74, .04) 0, rgba(184, 148, 74, .04) 1px,
+          transparent 1px, transparent 28px);
+    }
+
+    .hero-img-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fd);
+      font-size: 14px;
+      color: rgba(255, 255, 255, .15);
+      letter-spacing: .12em;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: var(--gd);
+      padding: 18px 22px;
+      z-index: 3;
+    }
+
+    .hero-badge-num {
+      font-family: var(--fd);
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ch);
+      line-height: 1;
+    }
+
+    .hero-badge-txt {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ch);
+      opacity: .7;
+      margin-top: 3px;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      background: var(--cr);
+      display: flex;
+      border-top: 1px solid var(--bd);
+    }
+
+    .stat-item {
+      flex: 1;
+      padding: 24px 32px;
+      border-right: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-family: var(--fd);
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--gd);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--md);
+    }
+
+
+    /* ============================================================
+   SECTION 2 — SERVICES
+   ============================================================ */
+    #services {
+      background: var(--sf);
+      padding: 80px 60px;
+    }
+
+    .services-header {
+      margin-bottom: 52px;
+    }
+
+    .services-header p {
+      font-size: 15px;
+      color: var(--md);
+      max-width: 500px;
+      margin-top: 10px;
+      line-height: 1.65;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--bd);
+    }
+
+    .svc-card {
+      background: #fff;
+      padding: 36px 32px;
+      position: relative;
+      transition: background .2s;
+    }
+
+    .svc-card:hover {
+      background: var(--cr);
+    }
+
+    .svc-card-dark {
+      background: var(--ch) !important;
+    }
+
+    .svc-card-dark:hover {
+      background: #222 !important;
+    }
+
+    .svc-num {
+      font-family: var(--fd);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gd);
+      letter-spacing: .12em;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .svc-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--cr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .svc-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--gd);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .svc-card-dark .svc-icon {
+      background: rgba(184, 148, 74, .14);
+    }
+
+    .svc-name {
+      font-family: var(--fd);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .svc-card-dark .svc-name {
+      color: #fff;
+    }
+
+    .svc-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--md);
+      margin-bottom: 18px;
+    }
+
+    .svc-card-dark .svc-desc {
+      color: rgba(255, 255, 255, .5);
+    }
+
+    .svc-list {
+      list-style: none;
+    }
+
+    .svc-list li {
+      font-size: 12px;
+      color: var(--md);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .svc-list li::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 1px;
+      background: var(--gd);
+      flex-shrink: 0;
+    }
+
+    .svc-card-dark .svc-list li {
+      color: rgba(255, 255, 255, .45);
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    .svc-arrow {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 32px;
+      height: 32px;
+      background: var(--gd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .svc-arrow svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--ch);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+
+    /* ============================================================
+   SECTION 3 — PORTFOLIO
+   ============================================================ */
+    #portfolio {
+      padding: 80px 60px;
+      background: var(--sf);
+    }
+
+    .portfolio-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .filters {
+      display: flex;
+      border: 1px solid var(--bd);
+      background: #fff;
+      width: fit-content;
+    }
+
+    .filter-btn {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      cursor: pointer;
+      color: var(--md);
+      border-right: 1px solid var(--bd);
+      background: transparent;
+      border-top: none;
+      border-bottom: none;
+      border-left: none;
+      border-right: 1px solid var(--bd);
+      transition: all .15s;
+    }
+
+    .filter-btn:last-child {
+      border-right: none;
+    }
+
+    .filter-btn.active {
+      background: var(--ch);
+      color: var(--gl);
+    }
+
+    .filter-btn:not(.active):hover {
+      background: var(--cr);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--bd);
+    }
+
+    .proj-card {
+      background: #fff;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-card.featured {
+      grid-column: span 2;
+    }
+
+    .proj-img {
+      background: linear-gradient(135deg, #2D2A24 0%, #3F3B34 50%, #2D2A24 100%);
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-card.featured .proj-img {
+      height: 340px;
+    }
+
+    .proj-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(184, 148, 74, .04) 0, rgba(184, 148, 74, .04) 1px, transparent 1px, transparent 24px);
+    }
+
+    .proj-img-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fd);
+      font-size: 12px;
+      color: rgba(255, 255, 255, .18);
+      letter-spacing: .1em;
+    }
+
+    .proj-overlay {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      transition: background .25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .proj-overlay-btn {
+      background: var(--gd);
+      color: var(--ch);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      opacity: 0;
+      transition: opacity .25s;
+      border: none;
+    }
+
+    .proj-card:hover .proj-overlay {
+      background: rgba(26, 26, 26, .5);
+    }
+
+    .proj-card:hover .proj-overlay-btn {
+      opacity: 1;
+    }
+
+    .proj-info {
+      padding: 20px 24px;
+    }
+
+    .proj-badge {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gd);
+      background: rgba(184, 148, 74, .1);
+      padding: 3px 8px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .proj-name {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 4px;
+    }
+
+    .proj-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--md);
+    }
+
+    .proj-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .proj-meta span::before {
+      content: '—';
+      color: var(--gd);
+    }
+
+
+    /* ============================================================
+   SECTION 4 — ABOUT
+   ============================================================ */
+    #about {}
+
+    .about-hero {
+      background: var(--ch);
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::after {
+      content: 'TDM';
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--fd);
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .03);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .about-title {
+      font-family: var(--fd);
+      font-size: 52px;
+      font-weight: 700;
+      line-height: .95;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .about-title em {
+      font-style: italic;
+      color: var(--gl);
+    }
+
+    .about-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, .55);
+      margin-bottom: 32px;
+    }
+
+    .stats-quad {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .sq-item {
+      background: var(--ch);
+      padding: 30px 24px;
+      border: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .sq-num {
+      font-family: var(--fd);
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--gd);
+      line-height: 1;
+    }
+
+    .sq-lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .45);
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    .timeline-section {
+      padding: 64px 60px;
+      background: #fff;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .timeline-section h3 {
+      font-family: var(--fd);
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ch);
+      margin-bottom: 36px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--bd);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -40px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      background: var(--gd);
+    }
+
+    .tl-year {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      color: var(--gd);
+      margin-bottom: 4px;
+    }
+
+    .tl-title {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 4px;
+    }
+
+    .tl-desc {
+      font-size: 13px;
+      color: var(--md);
+      line-height: 1.6;
+    }
+
+    .team-section {
+      padding: 64px 60px;
+      background: var(--cr);
+    }
+
+    .team-section h3 {
+      font-family: var(--fd);
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ch);
+      margin-top: 16px;
+      margin-bottom: 32px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--bd);
+    }
+
+    .team-card {
+      background: #fff;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 72px;
+      height: 72px;
+      background: var(--ch);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-initials {
+      font-family: var(--fd);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gd);
+    }
+
+    .team-name {
+      font-family: var(--fd);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 11px;
+      color: var(--gd);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .team-exp {
+      font-size: 12px;
+      color: var(--md);
+    }
+
+
+    /* ============================================================
+   SECTION 5 — PRICING
+   ============================================================ */
+    #pricing {
+      padding: 80px 60px;
+      background: var(--sf);
+    }
+
+    .pricing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .pricing-header p {
+      font-size: 14px;
+      color: var(--md);
+      max-width: 340px;
+      line-height: 1.65;
+      text-align: right;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--bd);
+      margin-bottom: 60px;
+    }
+
+    .price-card {
+      background: #fff;
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .price-card.featured {
+      background: var(--ch);
+    }
+
+    .pop-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gd);
+      color: var(--ch);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: var(--fd);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 4px;
+    }
+
+    .plan-sub {
+      font-size: 12px;
+      color: var(--md);
+      margin-bottom: 24px;
+    }
+
+    .price-card.featured .plan-name {
+      color: #fff;
+    }
+
+    .price-card.featured .plan-sub {
+      color: rgba(255, 255, 255, .45);
+    }
+
+    .price-val {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .price-num {
+      font-family: var(--fd);
+      font-size: 54px;
+      font-weight: 700;
+      color: var(--gd);
+      line-height: 1;
+    }
+
+    .price-unit {
+      font-size: 13px;
+      color: var(--md);
+    }
+
+    .price-range {
+      font-size: 11px;
+      color: var(--md);
+      margin-bottom: 28px;
+    }
+
+    .price-card.featured .price-range {
+      color: rgba(255, 255, 255, .4);
+    }
+
+    .divider-line {
+      height: 1px;
+      background: var(--bd);
+      margin: 20px 0;
+    }
+
+    .price-card.featured .divider-line {
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .feat-list {
+      list-style: none;
+    }
+
+    .feat-list li {
+      font-size: 13px;
+      color: var(--sl);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--cr);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feat-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feat-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: var(--gd);
+      flex-shrink: 0;
+    }
+
+    .feat-list li.no {
+      color: var(--md);
+    }
+
+    .feat-list li.no::before {
+      background: var(--bd);
+    }
+
+    .price-card.featured .feat-list li {
+      color: rgba(255, 255, 255, .65);
+      border-color: rgba(255, 255, 255, .06);
+    }
+
+    .price-card.featured .feat-list li.no {
+      color: rgba(255, 255, 255, .28);
+    }
+
+    .price-btn {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      padding: 13px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: none;
+    }
+
+    .price-btn-outline {
+      background: transparent;
+      color: var(--ch);
+      border: 1.5px solid var(--bd);
+      cursor: pointer;
+    }
+
+    .price-btn-gold {
+      background: var(--gd);
+      color: var(--ch);
+      cursor: pointer;
+    }
+
+    .price-btn-outline-w {
+      background: transparent;
+      color: rgba(255, 255, 255, .65);
+      border: 1.5px solid rgba(255, 255, 255, .2);
+      cursor: pointer;
+    }
+
+    .price-table-section h3 {
+      font-family: var(--fd);
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--ch);
+      margin-bottom: 24px;
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--bd);
+    }
+
+    .price-table th {
+      background: var(--ch);
+      color: rgba(255, 255, 255, .65);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      text-align: left;
+    }
+
+    .price-table th:last-child {
+      text-align: right;
+    }
+
+    .price-table td {
+      font-size: 13px;
+      color: var(--sl);
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--cr);
+    }
+
+    .price-table td:last-child {
+      text-align: right;
+    }
+
+    .price-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .price-table tr:nth-child(even) td {
+      background: var(--sf);
+    }
+
+    .price-tag {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gd);
+    }
+
+    .cat-row td {
+      background: var(--cr) !important;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--md);
+      padding: 8px 20px;
+    }
+
+
+    /* ============================================================
+   SECTION 6 — CALCULATOR
+   ============================================================ */
+    #calculator {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+    }
+
+    .calc-left {
+      padding: 72px 60px;
+      background: var(--sf);
+    }
+
+    .calc-left h2 {
+      margin-bottom: 8px;
+    }
+
+    .calc-sub {
+      font-size: 13px;
+      color: var(--md);
+      margin-bottom: 40px;
+    }
+
+    .field-group {
+      margin-bottom: 28px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--md);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .field-input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--bd);
+      padding: 13px 16px;
+      font-size: 14px;
+      color: var(--ch);
+      outline: none;
+      border-radius: 0;
+    }
+
+    .field-input:focus {
+      border-color: var(--gd);
+    }
+
+    .field-input::placeholder {
+      color: var(--bd);
+    }
+
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .range-disp {
+      font-family: var(--fd);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gd);
+      min-width: 72px;
+    }
+
+    input[type=range] {
+      flex: 1;
+      height: 3px;
+      background: var(--bd);
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--gd);
+      border-radius: 50%;
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--gd);
+      border-radius: 50%;
+      border: none;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 9px 18px;
+      border: 1px solid var(--bd);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--md);
+      cursor: pointer;
+      background: #fff;
+      transition: all .15s;
+    }
+
+    .chip.sel {
+      background: var(--ch);
+      color: #fff;
+      border-color: var(--ch);
+    }
+
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toggle-chip {
+      padding: 8px 16px;
+      border: 1px solid var(--bd);
+      font-size: 12px;
+      color: var(--md);
+      cursor: pointer;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toggle-chip.on {
+      border-color: var(--gd);
+      color: var(--gd);
+    }
+
+    .toggle-chip.on::before {
+      content: '✓';
+      font-size: 11px;
+    }
+
+    .calc-right {
+      background: var(--ch);
+      padding: 56px 44px;
+      position: sticky;
+      top: 68px;
+      align-self: start;
+    }
+
+    .res-header {
+      font-family: var(--fd);
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .res-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 32px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .res-big {
+      font-family: var(--fd);
+      font-size: 58px;
+      font-weight: 700;
+      color: var(--gd);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .res-range {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 36px;
+    }
+
+    .breakdown {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding-top: 24px;
+    }
+
+    .bk-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .bk-item:last-child {
+      border-bottom: none;
+    }
+
+    .bk-name {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .48);
+    }
+
+    .bk-val {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .78);
+    }
+
+    .tl-est {
+      background: rgba(184, 148, 74, .12);
+      border-left: 2px solid var(--gd);
+      padding: 16px 18px;
+      margin: 28px 0;
+    }
+
+    .tl-est-lbl {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gd);
+      margin-bottom: 4px;
+    }
+
+    .tl-est-val {
+      font-family: var(--fd);
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .calc-cta {
+      display: block;
+      width: 100%;
+      background: var(--gd);
+      color: var(--ch);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .calc-cta-ghost {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: rgba(255, 255, 255, .55);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, .15);
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+
+    /* ============================================================
+   SECTION 7 — REVIEWS
+   ============================================================ */
+    #reviews {}
+
+    .rating-hero {
+      background: var(--ch);
+      padding: 56px 60px;
+      display: grid;
+      grid-template-columns: auto 1px auto 1px auto;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .rh-divider {
+      height: 80px;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .big-rating-num {
+      font-family: var(--fd);
+      font-size: 80px;
+      font-weight: 700;
+      color: var(--gd);
+      line-height: 1;
+    }
+
+    .stars-row {
+      display: flex;
+      gap: 4px;
+      margin: 8px 0;
+    }
+
+    .star {
+      width: 18px;
+      height: 18px;
+      background: var(--gd);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .star.half {
+      background: linear-gradient(90deg, var(--gd) 50%, rgba(184, 148, 74, .25) 50%);
+    }
+
+    .rating-count {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .4);
+    }
+
+    .rating-bars {
+      min-width: 200px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .bar-num {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .45);
+      width: 12px;
+      text-align: right;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .bar-fill {
+      height: 4px;
+      background: var(--gd);
+    }
+
+    .bar-pct {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .38);
+      width: 28px;
+    }
+
+    .reviews-body {
+      padding: 56px 60px;
+      background: var(--sf);
+    }
+
+    .reviews-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+
+    .reviews-top h3 {
+      font-family: var(--fd);
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--ch);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--bd);
+    }
+
+    .review-card {
+      background: #fff;
+      padding: 28px 24px;
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .reviewer {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .reviewer-avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--ch);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .reviewer-init {
+      font-family: var(--fd);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gd);
+    }
+
+    .reviewer-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ch);
+    }
+
+    .reviewer-meta {
+      font-size: 11px;
+      color: var(--md);
+    }
+
+    .r-stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .rs {
+      width: 12px;
+      height: 12px;
+      background: var(--gd);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .review-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--sl);
+    }
+
+    .review-footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--cr);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gd);
+      background: rgba(184, 148, 74, .1);
+      padding: 3px 8px;
+    }
+
+    .review-date {
+      font-size: 11px;
+      color: var(--md);
+    }
+
+    .trust-bar {
+      background: var(--cr);
+      padding: 28px 60px;
+      border-top: 1px solid var(--bd);
+    }
+
+    .trust-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--md);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logos-row {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .trust-logo {
+      font-family: var(--fd);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--md);
+      opacity: .48;
+    }
+
+
+    /* ============================================================
+   SECTION 8 — PROCESS
+   ============================================================ */
+    #process {
+      padding: 80px 60px;
+      background: var(--sf);
+    }
+
+    .process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .process-header p {
+      font-size: 14px;
+      color: var(--md);
+      max-width: 300px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--bd);
+    }
+
+    .step-card {
+      background: #fff;
+      padding: 40px 36px;
+      position: relative;
+    }
+
+    .step-card:nth-child(even) {
+      background: var(--cr);
+    }
+
+    .step-card.step-dark {
+      background: var(--ch) !important;
+    }
+
+    .step-num {
+      font-family: var(--fd);
+      font-size: 64px;
+      font-weight: 700;
+      color: rgba(184, 148, 74, .1);
+      line-height: 1;
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      pointer-events: none;
+    }
+
+    .step-card.step-dark .step-num {
+      color: rgba(255, 255, 255, .04);
+    }
+
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .step-icon.light {
+      background: rgba(184, 148, 74, .14);
+    }
+
+    .step-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--ch);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+
+    .step-icon.light svg {
+      stroke: var(--gd);
+    }
+
+    .step-title {
+      font-family: var(--fd);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--ch);
+      margin-bottom: 10px;
+    }
+
+    .step-card.step-dark .step-title {
+      color: #fff;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--md);
+    }
+
+    .step-card.step-dark .step-desc {
+      color: rgba(255, 255, 255, .5);
+    }
+
+    .step-details {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .step-details li {
+      font-size: 12px;
+      color: var(--md);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      gap: 8px;
+    }
+
+    .step-details li::before {
+      content: '→';
+      color: var(--gd);
+      flex-shrink: 0;
+    }
+
+    .step-card.step-dark .step-details li {
+      color: rgba(255, 255, 255, .45);
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    .step-dur {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(184, 148, 74, .12);
+      color: var(--gd);
+      padding: 4px 10px;
+      margin-top: 16px;
+    }
+
+    .guarantee-bar {
+      background: var(--ch);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .guar-item {
+      padding: 36px 32px;
+      border-right: 1px solid rgba(255, 255, 255, .07);
+    }
+
+    .guar-item:last-child {
+      border-right: none;
+    }
+
+    .guar-icon {
+      font-family: var(--fd);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gd);
+      margin-bottom: 12px;
+    }
+
+    .guar-title {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .guar-text {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, .45);
+    }
+
+
+    /* ============================================================
+   SECTION 9 — CONTACTS
+   ============================================================ */
+    #contacts {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+    }
+
+    .contact-left {
+      padding: 72px 60px;
+      background: var(--sf);
+    }
+
+    .contact-left h2 {
+      margin-bottom: 32px;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 36px;
+      border: 1px solid var(--bd);
+    }
+
+    .contact-item {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: #fff;
+      transition: background .15s;
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-item:hover {
+      background: var(--cr);
+    }
+
+    .ci-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--cr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ci-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gd);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+
+    .ci-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--md);
+      margin-bottom: 2px;
+    }
+
+    .ci-val {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ch);
+    }
+
+    .ci-sub {
+      font-size: 11px;
+      color: var(--md);
+      margin-top: 2px;
+    }
+
+    .map-placeholder {
+      background: linear-gradient(135deg, #E8E4DA 0%, #D8D2C8 50%, #E8E4DA 100%);
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border: 1px solid var(--bd);
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+
+    .map-pin-dot {
+      width: 14px;
+      height: 14px;
+      background: var(--gd);
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    .map-pin-line {
+      width: 1px;
+      height: 20px;
+      background: var(--gd);
+      margin: 0 auto;
+    }
+
+    .map-lbl {
+      font-family: var(--fd);
+      font-size: 13px;
+      color: var(--md);
+      letter-spacing: .08em;
+    }
+
+    .contact-form {
+      background: var(--ch);
+      padding: 56px 44px;
+    }
+
+    .form-title {
+      font-family: var(--fd);
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .form-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 32px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-full {
+      margin-bottom: 12px;
+    }
+
+    .cf-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .42);
+      margin-bottom: 7px;
+      display: block;
+    }
+
+    .cf-input {
+      width: 100%;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      border-radius: 0;
+    }
+
+    .cf-input::placeholder {
+      color: rgba(255, 255, 255, .22);
+    }
+
+    .cf-input:focus {
+      border-color: var(--gd);
+    }
+
+    textarea.cf-input {
+      resize: none;
+      height: 100px;
+    }
+
+    .form-submit {
+      display: block;
+      width: 100%;
+      background: var(--gd);
+      color: var(--ch);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .form-note {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .22);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .hours-row {
+      display: flex;
+      gap: 0;
+      margin-top: 28px;
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .hour-item {
+      flex: 1;
+      padding: 14px;
+      border-right: 1px solid rgba(255, 255, 255, .08);
+      text-align: center;
+    }
+
+    .hour-item:last-child {
+      border-right: none;
+    }
+
+    .h-day {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .38);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .h-time {
+      font-family: var(--fd);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gd);
+    }
+
+
+    /* ============================================================
+   SECTION 10 — CTA + FOOTER
+   ============================================================ */
+    .cta-section {
+      background: var(--gd);
+      padding: 72px 60px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: 'BUD';
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--fd);
+      font-size: 200px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .08);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .cta-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(26, 26, 26, .58);
+      margin-bottom: 12px;
+    }
+
+    .cta-title {
+      font-family: var(--fd);
+      font-size: 52px;
+      font-weight: 700;
+      line-height: .95;
+      color: var(--ch);
+      margin-bottom: 8px;
+    }
+
+    .cta-sub {
+      font-size: 14px;
+      color: rgba(26, 26, 26, .6);
+    }
+
+    .cta-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    footer {
+      background: #111;
+    }
+
+    .footer-inner {
+      padding: 60px 60px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+    }
+
+    .footer-logo-hex {
+      width: 40px;
+      height: 40px;
+      background: var(--gd);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .footer-logo-hex span {
+      font-family: var(--fd);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ch);
+    }
+
+    .footer-brand-name {
+      font-family: var(--fd);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .06em;
+      margin-bottom: 4px;
+    }
+
+    .footer-tagline {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .32);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .footer-desc {
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .38);
+    }
+
+    .soc-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .soc-btn {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, .06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .soc-btn:hover {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .soc-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: rgba(255, 255, 255, .4);
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gd);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links li a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .42);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+
+    .footer-links li a::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 1px;
+      background: rgba(184, 148, 74, .5);
+      flex-shrink: 0;
+    }
+
+    .footer-links li a:hover {
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .fci {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+
+    .fci-icon {
+      font-size: 14px;
+      color: var(--gd);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .fci-val {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .52);
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      background: rgba(184, 148, 74, .1);
+      border-left: 2px solid var(--gd);
+      padding: 10px 14px;
+      margin-top: 16px;
+    }
+
+    .footer-note-lbl {
+      font-size: 10px;
+      color: var(--gd);
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .footer-note-val {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .copy-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .24);
+    }
+
+    .footer-policy {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-policy a {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .24);
+      transition: color .15s;
+    }
+
+    .footer-policy a:hover {
+      color: rgba(255, 255, 255, .5);
+    }
+
+    .back-top {
+      background: var(--gd);
+      color: var(--ch);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <div class="logo-hex"><span>T</span></div>
+      <div>
+        <div class="logo-name">TDM BUD</div>
+        <div class="logo-sub">Будівництво · Ремонт під ключ</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#services" class="active">Послуги</a>
+      <a href="#portfolio">Портфоліо</a>
+      <a href="#about">Про нас</a>
+      <a href="#pricing">Ціни</a>
+      <a href="#calculator">Калькулятор</a>
+      <a href="#contacts">Контакти</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-gold">Замовити дзвінок</button>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+     SECTION 1 — HERO
+     ============================================================ -->
+  <section id="hero-section">
+    <div id="hero">
+      <div class="hero-grid-pattern"></div>
+      <div class="hero-left">
+        <div class="eyebrow hero-eyebrow" style="color:var(--gl);">Чернівці та область</div>
+        <h1 class="hero-title">Ремонт<br>квартир<br><em>під ключ</em></h1>
+        <p class="hero-sub">Від дизайн-проєкту до фінішної обробки. Преміальна якість, фіксована ціна, гарантія 2 роки.
+        </p>
+        <div class="hero-actions">
+          <a href="#calculator"><button class="btn btn-gold">Розрахувати вартість</button></a>
+          <a href="#portfolio"><button class="btn btn-outline-w">Наше портфоліо</button></a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-img-label">[ Фото інтер'єру ]</div>
+        <div class="hero-badge">
+          <div class="hero-badge-num">500+</div>
+          <div class="hero-badge-txt">Об'єктів зданих</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">12</div>
+        <div class="stat-desc">Років на<br>ринку Чернівців</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-desc">Завершених<br>проєктів</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-desc">Клієнтів<br>рекомендують нас</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2 р.</div>
+        <div class="stat-desc">Гарантія на<br>всі роботи</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 2 — SERVICES
+     ============================================================ -->
+  <section id="services">
+    <div class="services-header">
+      <div class="eyebrow">Що ми робимо</div>
+      <h2 class="section-title" style="font-size:48px">Послуги TDM BUD</h2>
+      <p>Повний спектр ремонтно-будівельних робіт у Чернівцях. Кожен проєкт — від ескізу до фінішу.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card svc-card-dark">
+        <span class="svc-num">01</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M3 9h18M9 21V9" />
+          </svg></div>
+        <div class="svc-name">Капітальний ремонт</div>
+        <p class="svc-desc">Повний цикл від демонтажу до фінішної обробки. Квартири, будинки, комерційні приміщення.</p>
+        <ul class="svc-list">
+          <li>Демонтаж та підготовка поверхонь</li>
+          <li>Чорнові та оздоблювальні роботи</li>
+          <li>Введення об'єкту в експлуатацію</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-num">02</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg></div>
+        <div class="svc-name">Дизайн інтер'єру</div>
+        <p class="svc-desc">Авторські рішення, що поєднують естетику та функціональність. 3D-візуалізація включена.</p>
+        <ul class="svc-list">
+          <li>Концепція та планувальне рішення</li>
+          <li>3D-візуалізація всіх приміщень</li>
+          <li>Авторський нагляд під час ремонту</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-num">03</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <path
+              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+          </svg></div>
+        <div class="svc-name">Оздоблювальні роботи</div>
+        <p class="svc-desc">Плитка, підлогові покриття, стелі, декоративна штукатурка. Точність і акуратність.</p>
+        <ul class="svc-list">
+          <li>Укладка плитки та підлогових покриттів</li>
+          <li>Натяжні та підвісні стелі</li>
+          <li>Декоративні покриття та фарбування</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-num">04</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg></div>
+        <div class="svc-name">Електрика та сантехніка</div>
+        <p class="svc-desc">Монтаж електричних мереж, сантехніки, систем опалення та водопостачання під ключ.</p>
+        <ul class="svc-list">
+          <li>Повна розводка електрики</li>
+          <li>Монтаж сантехнічного обладнання</li>
+          <li>Тепла підлога та системи опалення</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="svc-card svc-card-dark">
+        <span class="svc-num">05</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg></div>
+        <div class="svc-name">Ремонт під ключ</div>
+        <p class="svc-desc">Комплексне рішення: один договір, один підрядник, повна відповідальність від А до Я.</p>
+        <ul class="svc-list">
+          <li>Координація всіх підрядників</li>
+          <li>Закупівля матеріалів за оптовими цінами</li>
+          <li>Здача з підписанням гарантійного листа</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-num">06</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <path d="M8 21h8M12 17v4" />
+          </svg></div>
+        <div class="svc-name">Комерційні приміщення</div>
+        <p class="svc-desc">Офіси, кафе, магазини, готелі. Дотримання норм пожежної безпеки та стислі терміни.</p>
+        <ul class="svc-list">
+          <li>Офіси та коворкінги будь-якого масштабу</li>
+          <li>Заклади HoReCa — кафе, ресторани</li>
+          <li>Торгові та виробничі площі</li>
+        </ul>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 3 — PORTFOLIO
+     ============================================================ -->
+  <section id="portfolio" style="padding:80px 60px; background:var(--cr);">
+    <div class="portfolio-top">
+      <div>
+        <div class="eyebrow">Наші роботи</div>
+        <h2 class="section-title" style="font-size:44px">Портфоліо</h2>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" onclick="setFilter(this,'all')">Усі</button>
+        <button class="filter-btn" onclick="setFilter(this,'квартири')">Квартири</button>
+        <button class="filter-btn" onclick="setFilter(this,'будинки')">Будинки</button>
+        <button class="filter-btn" onclick="setFilter(this,'комерційні')">Комерційні</button>
+        <button class="filter-btn" onclick="setFilter(this,'дизайн')">Дизайн</button>
+      </div>
+    </div>
+    <div class="portfolio-grid">
+      <div class="proj-card featured">
+        <div class="proj-img" style="height:340px">
+          <div class="proj-img-label">[ Вітальня — Мінімалізм ]</div>
+          <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+        </div>
+        <div class="proj-info">
+          <span class="proj-badge">Капітальний ремонт</span>
+          <div class="proj-name">Квартира на Кобилянській</div>
+          <div class="proj-meta"><span>82 м²</span><span>Мінімалізм</span><span>2024</span></div>
+        </div>
+      </div>
+      <div style="background:var(--bd);display:flex;flex-direction:column;gap:1px;">
+        <div class="proj-card">
+          <div class="proj-img" style="height:200px">
+            <div class="proj-img-label">[ Кухня — Loft ]</div>
+            <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+          </div>
+          <div class="proj-info">
+            <span class="proj-badge">Дизайн + Ремонт</span>
+            <div class="proj-name">Студія на Героїв Майдану</div>
+            <div class="proj-meta"><span>48 м²</span><span>Loft</span></div>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-img" style="height:200px">
+            <div class="proj-img-label">[ Спальня — Класика ]</div>
+            <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+          </div>
+          <div class="proj-info">
+            <span class="proj-badge">Під ключ</span>
+            <div class="proj-name">Котедж у Садгорі</div>
+            <div class="proj-meta"><span>140 м²</span><span>Класика</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-img" style="height:200px">
+          <div class="proj-img-label">[ Офіс — Сучасний ]</div>
+          <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+        </div>
+        <div class="proj-info">
+          <span class="proj-badge">Комерційний</span>
+          <div class="proj-name">IT-офіс Центр</div>
+          <div class="proj-meta"><span>210 м²</span><span>2023</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-img" style="height:200px">
+          <div class="proj-img-label">[ Ванна — Spa ]</div>
+          <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+        </div>
+        <div class="proj-info">
+          <span class="proj-badge">Ванна кімната</span>
+          <div class="proj-name">Ванна на вул. Шевченка</div>
+          <div class="proj-meta"><span>14 м²</span><span>Spa-стиль</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-img" style="height:200px">
+          <div class="proj-img-label">[ Ресторан — Арт-деко ]</div>
+          <div class="proj-overlay"><button class="proj-overlay-btn">Переглянути</button></div>
+        </div>
+        <div class="proj-info">
+          <span class="proj-badge">HoReCa</span>
+          <div class="proj-name">Кафе Буковина</div>
+          <div class="proj-meta"><span>95 м²</span><span>2024</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 4 — ABOUT
+     ============================================================ -->
+  <section id="about">
+    <div class="about-hero">
+      <div>
+        <div class="eyebrow" style="color:var(--gl)">Наша компанія</div>
+        <h2 class="about-title">12 років <em>будуємо</em> Чернівці</h2>
+        <p class="about-text">TDM BUD — команда майстрів, яка перетворює порожні стіни на простори для життя. Ми
+          пишаємося кожним об'єктом і несемо відповідальність за кожен цвях.</p>
+        <button class="btn btn-gold">Познайомитись ближче</button>
+      </div>
+      <div class="stats-quad">
+        <div class="sq-item">
+          <div class="sq-num">2012</div>
+          <div class="sq-lbl">Рік заснування<br>компанії</div>
+        </div>
+        <div class="sq-item">
+          <div class="sq-num">500+</div>
+          <div class="sq-lbl">Зданих об'єктів<br>у Чернівцях</div>
+        </div>
+        <div class="sq-item">
+          <div class="sq-num">40+</div>
+          <div class="sq-lbl">Майстрів у<br>команді</div>
+        </div>
+        <div class="sq-item">
+          <div class="sq-num">98%</div>
+          <div class="sq-lbl">Клієнтів<br>рекомендують нас</div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-section">
+      <h3>Наш шлях</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2012</div>
+          <div class="tl-title">Заснування TDM BUD</div>
+          <div class="tl-desc">Перші 5 спеціалістів, перші квартири у Чернівцях</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2015</div>
+          <div class="tl-title">Запуск дизайн-відділу</div>
+          <div class="tl-desc">Власна команда дизайнерів, 3D-візуалізація проєктів</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2018</div>
+          <div class="tl-title">100-й об'єкт зданий</div>
+          <div class="tl-desc">Вихід на ринок комерційних приміщень, перші офіси та кафе</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-title">Преміум-сегмент</div>
+          <div class="tl-desc">Відкриття відділу елітного ремонту та дизайнерських інтер'єрів</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-title">500+ проєктів</div>
+          <div class="tl-desc">Команда 40+ спеціалістів, Чернівці та Чернівецька область</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-section">
+      <div class="eyebrow">Ключова команда</div>
+      <h3>Люди TDM BUD</h3>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="team-initials">ДМ</div>
+          </div>
+          <div class="team-name">Дмитро Мельник</div>
+          <div class="team-role">Засновник</div>
+          <div class="team-exp">12 років в будівництві</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="team-initials">ОК</div>
+          </div>
+          <div class="team-name">Олена Ковач</div>
+          <div class="team-role">Головний дизайнер</div>
+          <div class="team-exp">8 років досвіду</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="team-initials">ВП</div>
+          </div>
+          <div class="team-name">Василь Петрів</div>
+          <div class="team-role">Технічний директор</div>
+          <div class="team-exp">15 років у галузі</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="team-initials">НС</div>
+          </div>
+          <div class="team-name">Наталія Стець</div>
+          <div class="team-role">Менеджер проєктів</div>
+          <div class="team-exp">7 років у сфері</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 5 — PRICING
+     ============================================================ -->
+  <section id="pricing">
+    <div class="pricing-header">
+      <div>
+        <div class="eyebrow">Прозора ціна</div>
+        <h2 class="section-title" style="font-size:44px">Тарифні плани</h2>
+      </div>
+      <p>Фіксована ціна. Жодних прихованих платежів. Оплата поетапно.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-name">Косметичний</div>
+        <div class="plan-sub">Оновлення та косметика</div>
+        <div class="price-val">
+          <div class="price-num">450</div>
+          <div class="price-unit">грн/м²</div>
+        </div>
+        <div class="price-range">від 400 до 600 грн/м²</div>
+        <div class="divider-line"></div>
+        <ul class="feat-list">
+          <li>Фарбування стін та стель</li>
+          <li>Заміна підлогового покриття</li>
+          <li>Монтаж плінтусів і дрібний ремонт</li>
+          <li class="no">Електрика та сантехніка</li>
+          <li class="no">Дизайн-проєкт включено</li>
+        </ul>
+        <button class="price-btn price-btn-outline">Обрати план</button>
+      </div>
+      <div class="price-card featured">
+        <div class="pop-badge">Найпопулярніший</div>
+        <div class="plan-name">Капітальний</div>
+        <div class="plan-sub">Повний цикл ремонту</div>
+        <div class="price-val">
+          <div class="price-num">850</div>
+          <div class="price-unit">грн/м²</div>
+        </div>
+        <div class="price-range">від 750 до 1100 грн/м²</div>
+        <div class="divider-line"></div>
+        <ul class="feat-list">
+          <li>Демонтаж та вирівнювання поверхонь</li>
+          <li>Повна розводка електрики</li>
+          <li>Монтаж сантехніки</li>
+          <li>Всі оздоблювальні роботи</li>
+          <li>Натяжні стелі включено</li>
+          <li>Гарантія 2 роки на всі роботи</li>
+        </ul>
+        <button class="price-btn price-btn-gold">Замовити ремонт</button>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">Преміум</div>
+        <div class="plan-sub">Дизайнерський інтер'єр</div>
+        <div class="price-val">
+          <div class="price-num">1500</div>
+          <div class="price-unit">грн/м²</div>
+        </div>
+        <div class="price-range">від 1200 до 2000+ грн/м²</div>
+        <div class="divider-line"></div>
+        <ul class="feat-list">
+          <li>Авторський дизайн-проєкт включено</li>
+          <li>Матеріали преміум-класу</li>
+          <li>Повний капітальний ремонт</li>
+          <li>3D-візуалізація всіх кімнат</li>
+          <li>Авторський нагляд дизайнера</li>
+          <li>Гарантія 3 роки на всі роботи</li>
+        </ul>
+        <button class="price-btn price-btn-outline">Обрати план</button>
+      </div>
+    </div>
+    <div class="price-table-section">
+      <h3>Прайс на окремі роботи</h3>
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>Вид роботи</th>
+            <th>Одиниця виміру</th>
+            <th>Ціна від</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row">
+            <td colspan="3">Підлога</td>
+          </tr>
+          <tr>
+            <td>Укладка ламінату / паркетної дошки</td>
+            <td>м²</td>
+            <td class="price-tag">180 грн</td>
+          </tr>
+          <tr>
+            <td>Укладка керамічної плитки</td>
+            <td>м²</td>
+            <td class="price-tag">220 грн</td>
+          </tr>
+          <tr>
+            <td>Наливна підлога (самовирівнювальна)</td>
+            <td>м²</td>
+            <td class="price-tag">140 грн</td>
+          </tr>
+          <tr class="cat-row">
+            <td colspan="3">Стіни та стелі</td>
+          </tr>
+          <tr>
+            <td>Машинна штукатурка стін</td>
+            <td>м²</td>
+            <td class="price-tag">120 грн</td>
+          </tr>
+          <tr>
+            <td>Поклейка шпалер</td>
+            <td>м²</td>
+            <td class="price-tag">80 грн</td>
+          </tr>
+          <tr>
+            <td>Натяжна стеля (одно- або двоярусна)</td>
+            <td>м²</td>
+            <td class="price-tag">250 грн</td>
+          </tr>
+          <tr class="cat-row">
+            <td colspan="3">Сантехніка</td>
+          </tr>
+          <tr>
+            <td>Встановлення ванни або душової кабіни</td>
+            <td>шт</td>
+            <td class="price-tag">1 800 грн</td>
+          </tr>
+          <tr>
+            <td>Розводка водопостачання (труби ПП)</td>
+            <td>п.м.</td>
+            <td class="price-tag">180 грн</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 6 — CALCULATOR
+     ============================================================ -->
+  <section id="calculator">
+    <div class="calc-left">
+      <div class="eyebrow">Онлайн-розрахунок</div>
+      <h2 class="section-title" style="font-size:40px">Калькулятор ремонту</h2>
+      <p class="calc-sub">Отримайте орієнтовну вартість за 2 хвилини. Без реєстрації.</p>
+
+      <div class="field-group">
+        <label class="field-label">Тип об'єкту</label>
+        <div class="chips">
+          <div class="chip sel" onclick="selChip(this);calcTotal()">Квартира</div>
+          <div class="chip" onclick="selChip(this);calcTotal()">Будинок</div>
+          <div class="chip" onclick="selChip(this);calcTotal()">Офіс</div>
+          <div class="chip" onclick="selChip(this);calcTotal()">Комерційне</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Площа: <span id="area-display">65</span> м²</label>
+        <div class="range-wrap">
+          <input type="range" min="20" max="300" value="65" step="1" id="areaRange"
+            oninput="document.getElementById('area-display').textContent=this.value;calcTotal()">
+          <div class="range-disp" id="areaDisp">65 м²</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Тип ремонту</label>
+        <div class="chips" id="typeChips">
+          <div class="chip" onclick="selChip(this);calcTotal()">Косметичний</div>
+          <div class="chip sel" onclick="selChip(this);calcTotal()">Капітальний</div>
+          <div class="chip" onclick="selChip(this);calcTotal()">Преміум</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Додаткові роботи</label>
+        <div class="toggle-row">
+          <div class="toggle-chip on" onclick="this.classList.toggle('on');calcTotal()">Дизайн-проєкт</div>
+          <div class="toggle-chip on" onclick="this.classList.toggle('on');calcTotal()">Електрика</div>
+          <div class="toggle-chip on" onclick="this.classList.toggle('on');calcTotal()">Сантехніка</div>
+          <div class="toggle-chip" onclick="this.classList.toggle('on');calcTotal()">Кухня під ключ</div>
+          <div class="toggle-chip" onclick="this.classList.toggle('on');calcTotal()">Вбудовані меблі</div>
+          <div class="toggle-chip" onclick="this.classList.toggle('on');calcTotal()">Тепла підлога</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Кількість кімнат</label>
+        <div class="chips">
+          <div class="chip sel" onclick="selChip(this)">1 кімната</div>
+          <div class="chip" onclick="selChip(this)">2 кімнати</div>
+          <div class="chip" onclick="selChip(this)">3 кімнати</div>
+          <div class="chip" onclick="selChip(this)">4+ кімнати</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-right">
+      <div class="res-header">Ваш розрахунок</div>
+      <div class="res-sub">Орієнтовна вартість</div>
+      <div class="res-big" id="totalVal">55 250</div>
+      <div class="res-range" id="totalRange">від 47 750 до 66 000 грн</div>
+      <div class="breakdown">
+        <div class="bk-item"><span class="bk-name">Площа</span><span class="bk-val" id="bkArea">65 м²</span></div>
+        <div class="bk-item"><span class="bk-name">Оздоблювальні роботи</span><span class="bk-val" id="bkBase">48 750
+            грн</span></div>
+        <div class="bk-item"><span class="bk-name">Дизайн-проєкт</span><span class="bk-val">+3 250 грн</span></div>
+        <div class="bk-item"><span class="bk-name">Електрика</span><span class="bk-val">+2 500 грн</span></div>
+        <div class="bk-item"><span class="bk-name">Сантехніка</span><span class="bk-val">+750 грн</span></div>
+      </div>
+      <div class="tl-est">
+        <div class="tl-est-lbl">Орієнтовний термін</div>
+        <div class="tl-est-val" id="tlEstimate">4–6 тижнів</div>
+      </div>
+      <button class="calc-cta">Надіслати кошторис на пошту</button>
+      <button class="calc-cta-ghost">Замовити точний розрахунок</button>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 7 — REVIEWS
+     ============================================================ -->
+  <section id="reviews">
+    <div class="rating-hero">
+      <div>
+        <div class="eyebrow" style="color:var(--gl)">Клієнти про нас</div>
+        <h2 style="font-family:var(--fd);font-size:40px;font-weight:700;color:#fff">Відгуки</h2>
+        <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:6px">487 відгуків на Google, OLX та Prom</p>
+      </div>
+      <div class="rh-divider"></div>
+      <div style="text-align:center">
+        <div class="big-rating-num">4.9</div>
+        <div class="stars-row" style="justify-content:center">
+          <div class="star"></div>
+          <div class="star"></div>
+          <div class="star"></div>
+          <div class="star"></div>
+          <div class="star half"></div>
+        </div>
+        <div class="rating-count">на основі 487 оцінок</div>
+      </div>
+      <div class="rh-divider"></div>
+      <div class="rating-bars">
+        <div class="bar-row">
+          <div class="bar-num">5</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:88%"></div>
+          </div>
+          <div class="bar-pct">88%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-num">4</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:9%"></div>
+          </div>
+          <div class="bar-pct">9%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-num">3</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:2%"></div>
+          </div>
+          <div class="bar-pct">2%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-num">2</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:1%"></div>
+          </div>
+          <div class="bar-pct">1%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-num">1</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%"></div>
+          </div>
+          <div class="bar-pct">0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-body">
+      <div class="reviews-top">
+        <h3>Що говорять клієнти</h3>
+        <div class="filters">
+          <button class="filter-btn active">Усі</button>
+          <button class="filter-btn">5 зірок</button>
+          <button class="filter-btn">4 зірки</button>
+          <button class="filter-btn">З фото</button>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">МК</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Марина Ковальчук</div>
+                <div class="reviewer-meta">Чернівці, кв. 65 м²</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Зробили капітальний ремонт квартири. Результат перевершив всі очікування! Все чисто,
+            акуратно, в строк. Вже рекомендувала сусідам.</p>
+          <div class="review-footer"><span class="review-tag">Капітальний ремонт</span><span class="review-date">Лютий
+              2025</span></div>
+        </div>
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">ОГ</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Олег Гринчук</div>
+                <div class="reviewer-meta">Чернівці, офіс 120 м²</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Ремонт офісу під ключ. Суворо дотримались кошторису — ні копійки зайвої. Команда дуже
+            відповідальна. Однозначно ще раз звернусь.</p>
+          <div class="review-footer"><span class="review-tag">Комерційний</span><span class="review-date">Березень
+              2025</span></div>
+        </div>
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">ЛС</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Людмила Сидоренко</div>
+                <div class="reviewer-meta">Чернівці, будинок</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Дизайн від TDM BUD — це окрема пісня! Прийшли подруги і ахнули. Простір відчувається
+            зовсім по-іншому. Дякую команді!</p>
+          <div class="review-footer"><span class="review-tag">Дизайн + Ремонт</span><span class="review-date">Листопад
+              2024</span></div>
+        </div>
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">ВМ</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Василь Мороз</div>
+                <div class="reviewer-meta">Чернівці, 2-кімнатна</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Давно мріяв про якісний ремонт. TDM BUD зробили все швидко і якісно. Особливо
+            сподобалось те, що прибрали за собою. Рекомендую!</p>
+          <div class="review-footer"><span class="review-tag">Під ключ</span><span class="review-date">Жовтень
+              2024</span></div>
+        </div>
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">ТВ</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Тетяна Василенко</div>
+                <div class="reviewer-meta">Чернівці, студія</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Невелика студія стала справжньою квартирою мрії. Хлопці дуже старалися, підказували і
+            допомагали з вибором матеріалів. Ціна — чесна.</p>
+          <div class="review-footer"><span class="review-tag">Косметичний</span><span class="review-date">Грудень
+              2024</span></div>
+        </div>
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <div class="reviewer-init">ІП</div>
+              </div>
+              <div>
+                <div class="reviewer-name">Іван Павленко</div>
+                <div class="reviewer-meta">Чернівці, ресторан</div>
+              </div>
+            </div>
+            <div class="r-stars">
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+              <div class="rs"></div>
+            </div>
+          </div>
+          <p class="review-text">Зробили ресторан з нуля — 95 м². Всі відвідувачі питають хто проектував. Горджуся
+            результатом. Молодці, TDM BUD!</p>
+          <div class="review-footer"><span class="review-tag">HoReCa</span><span class="review-date">Січень 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-bar">
+      <div class="trust-lbl">Нас рекомендують та відзначають</div>
+      <div class="logos-row">
+        <div class="trust-logo">Google ★ 4.9</div>
+        <div class="trust-logo">OLX ★ 4.8</div>
+        <div class="trust-logo">Prom.ua ★ 5.0</div>
+        <div class="trust-logo">Clutch ★ 4.9</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 8 — PROCESS
+     ============================================================ -->
+  <section id="process">
+    <div class="process-header">
+      <div>
+        <div class="eyebrow">Як ми працюємо</div>
+        <h2 class="section-title" style="font-size:44px">6 кроків до<br>вашого нового дому</h2>
+      </div>
+      <p>Чіткий план, фіксований бюджет, жодних сюрпризів. Ми ведемо вас за руку від першого дзвінка до новосілля.</p>
+    </div>
+    <div class="process-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.27 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16z" />
+          </svg></div>
+        <div class="step-title">Перший дзвінок</div>
+        <p class="step-desc">Обговорюємо ваш проєкт, умови та терміни. Виїжджаємо на об'єкт безкоштовно.</p>
+        <ul class="step-details">
+          <li>Безкоштовний виїзд на замір</li>
+          <li>Оцінка стану об'єкта</li>
+        </ul>
+        <div class="step-dur">1–2 дні</div>
+      </div>
+      <div class="step-card step-dark">
+        <div class="step-num">02</div>
+        <div class="step-icon light"><svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg></div>
+        <div class="step-title">Дизайн і планування</div>
+        <p class="step-desc">Дизайнери розробляють концепцію та планування. Ви бачите результат у 3D.</p>
+        <ul class="step-details">
+          <li>3D-візуалізація всіх кімнат</li>
+          <li>Вибір матеріалів та кольорів</li>
+        </ul>
+        <div class="step-dur">3–7 днів</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg></div>
+        <div class="step-title">Кошторис і договір</div>
+        <p class="step-desc">Складаємо детальний кошторис із фіксованими цінами та підписуємо договір.</p>
+        <ul class="step-details">
+          <li>Детальний кошторис по позиціях</li>
+          <li>Фіксована ціна без доплат</li>
+        </ul>
+        <div class="step-dur">1 день</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <path d="M8 21h8M12 17v4" />
+          </svg></div>
+        <div class="step-title">Купівля матеріалів</div>
+        <p class="step-desc">Закуповуємо матеріали у перевірених постачальників. Без націнки — за собівартістю.</p>
+        <ul class="step-details">
+          <li>Партнерські знижки 10–20%</li>
+          <li>Контроль якості матеріалів</li>
+        </ul>
+        <div class="step-dur">2–5 днів</div>
+      </div>
+      <div class="step-card step-dark">
+        <div class="step-num">05</div>
+        <div class="step-icon light"><svg viewBox="0 0 24 24">
+            <path
+              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+          </svg></div>
+        <div class="step-title">Виконання робіт</div>
+        <p class="step-desc">Команда майстрів працює за затвердженим графіком. Щотижня — фотозвіт клієнту.</p>
+        <ul class="step-details">
+          <li>Щотижневі фотозвіти</li>
+          <li>Авторський нагляд дизайнера</li>
+        </ul>
+        <div class="step-dur">4–12 тижнів</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12" />
+          </svg></div>
+        <div class="step-title">Здача та гарантія</div>
+        <p class="step-desc">Підписуємо акт виконаних робіт та надаємо гарантійний лист на 2 роки.</p>
+        <ul class="step-details">
+          <li>Фінальне прибирання включено</li>
+          <li>Гарантія 2 роки на всі роботи</li>
+        </ul>
+        <div class="step-dur">1 день</div>
+      </div>
+    </div>
+    <div class="guarantee-bar">
+      <div class="guar-item">
+        <div class="guar-icon">→</div>
+        <div class="guar-title">Фіксована ціна</div>
+        <div class="guar-text">Ціна у договорі не зміниться. Жодних доплат у процесі роботи.</div>
+      </div>
+      <div class="guar-item">
+        <div class="guar-icon">⊙</div>
+        <div class="guar-title">Терміни під контролем</div>
+        <div class="guar-text">Прописуємо дедлайн у договорі. За прострочення — компенсація.</div>
+      </div>
+      <div class="guar-item">
+        <div class="guar-icon">✓</div>
+        <div class="guar-title">Гарантія 2 роки</div>
+        <div class="guar-text">Усуваємо будь-які дефекти з нашої вини безкоштовно протягом 2 років.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 9 — CONTACTS
+     ============================================================ -->
+  <section id="contacts">
+    <div class="contact-left">
+      <div class="eyebrow">Зв'яжіться з нами</div>
+      <h2 class="section-title" style="font-size:44px">Контакти</h2>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.27 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16z" />
+            </svg></div>
+          <div>
+            <div class="ci-label">Телефон</div>
+            <div class="ci-val">+380 67 000 00 00</div>
+            <div class="ci-sub">Viber / WhatsApp / Telegram</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg></div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val">info@tdmbud.com.ua</div>
+            <div class="ci-sub">Відповідаємо протягом 2 годин</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg></div>
+          <div>
+            <div class="ci-label">Офіс</div>
+            <div class="ci-val">вул. Кобилянської, 42</div>
+            <div class="ci-sub">Чернівці, 58000 · Пн–Сб 9:00–19:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div class="map-pin">
+          <div class="map-pin-dot"></div>
+          <div class="map-pin-line"></div>
+        </div>
+        <div class="map-lbl">[ Google Maps — Чернівці ]</div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Залишити заявку</div>
+      <div class="form-sub">Передзвонимо протягом 15 хвилин в робочий час</div>
+      <div class="form-grid">
+        <div><label class="cf-label">Ім'я</label><input class="cf-input" type="text" placeholder="Іван"></div>
+        <div><label class="cf-label">Телефон</label><input class="cf-input" type="text" placeholder="+380 67..."></div>
+      </div>
+      <div class="form-full"><label class="cf-label">Тип послуги</label>
+        <select class="cf-input" style="color:rgba(255,255,255,.85)">
+          <option style="background:#1A1A1A">Капітальний ремонт</option>
+          <option style="background:#1A1A1A">Косметичний ремонт</option>
+          <option style="background:#1A1A1A">Дизайн-проєкт</option>
+          <option style="background:#1A1A1A">Консультація</option>
+        </select>
+      </div>
+      <div class="form-full"><label class="cf-label">Коментар</label><textarea class="cf-input"
+          placeholder="Опишіть ваш об'єкт..."></textarea></div>
+      <button class="form-submit">Надіслати заявку</button>
+      <div class="form-note">Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних</div>
+      <div class="hours-row">
+        <div class="hour-item">
+          <div class="h-day">Пн–Пт</div>
+          <div class="h-time">9–19</div>
+        </div>
+        <div class="hour-item">
+          <div class="h-day">Субота</div>
+          <div class="h-time">9–17</div>
+        </div>
+        <div class="hour-item">
+          <div class="h-day">Неділя</div>
+          <div class="h-time" style="color:rgba(255,255,255,.22)">Вихід.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     SECTION 10 — CTA + FOOTER
+     ============================================================ -->
+  <div class="cta-section">
+    <div>
+      <div class="cta-eyebrow">Готові почати?</div>
+      <div class="cta-title">Перетворимо ваш простір<br>на дім мрії</div>
+      <div class="cta-sub">Безкоштовна консультація та виїзд на замір. Кошторис — за 24 години.</div>
+    </div>
+    <div class="cta-btns">
+      <button class="btn btn-dark" style="padding:14px 32px">Замовити консультацію</button>
+      <button class="btn btn-outline" style="padding:13px 32px">Розрахувати вартість</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo-hex"><span>T</span></div>
+          <div class="footer-brand-name">TDM BUD</div>
+          <div class="footer-tagline">Будівництво · Ремонт під ключ</div>
+          <p class="footer-desc">Комплексний ремонт квартир та комерційних приміщень у Чернівцях з 2012 року.</p>
+          <div class="soc-row">
+            <div class="soc-btn"><svg viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg></div>
+            <div class="soc-btn"><svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="1"
+                  style="fill:none;stroke:rgba(255,255,255,.4)" />
+              </svg></div>
+            <div class="soc-btn"><svg viewBox="0 0 24 24">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.27 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16z" />
+              </svg></div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Послуги</div>
+          <ul class="footer-links">
+            <li><a href="#services">Капітальний ремонт</a></li>
+            <li><a href="#services">Косметичний ремонт</a></li>
+            <li><a href="#services">Дизайн інтер'єру</a></li>
+            <li><a href="#services">Ремонт під ключ</a></li>
+            <li><a href="#services">Комерційні об'єкти</a></li>
+            <li><a href="#services">Оздоблювальні роботи</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Компанія</div>
+          <ul class="footer-links">
+            <li><a href="#about">Про нас</a></li>
+            <li><a href="#portfolio">Портфоліо</a></li>
+            <li><a href="#reviews">Відгуки</a></li>
+            <li><a href="#about">Наша команда</a></li>
+            <li><a href="#pricing">Ціни та тарифи</a></li>
+            <li><a href="#process">Як ми працюємо</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Контакти</div>
+          <div class="fci">
+            <div class="fci-icon">✆</div>
+            <div class="fci-val">+380 67 000 00 00<br><span style="font-size:11px;color:rgba(255,255,255,.28)">Viber /
+                WhatsApp / Telegram</span></div>
+          </div>
+          <div class="fci">
+            <div class="fci-icon">@</div>
+            <div class="fci-val">info@tdmbud.com.ua</div>
+          </div>
+          <div class="fci">
+            <div class="fci-icon">⌖</div>
+            <div class="fci-val">вул. Кобилянської, 42<br>Чернівці, 58000</div>
+          </div>
+          <div class="footer-note">
+            <div class="footer-note-lbl">Режим роботи</div>
+            <div class="footer-note-val">Пн–Пт 9:00–19:00 · Сб 9:00–17:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="copy-text">© 2025 TDM BUD. Всі права захищені. Чернівці, Україна.</div>
+        <div class="footer-policy">
+          <a href="#">Політика конфіденційності</a>
+          <a href="#">Умови використання</a>
+          <a href="#">Договір оферти</a>
+        </div>
+        <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Вгору</button>
+      </div>
+    </div>
+    <a class="backBtn" href="./index.html">Назад</a>
+  </footer>
+
+
+  <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+  <script>
+    /* ── Navbar active / scroll ── */
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+
+      const sections = ['hero-section', 'services', 'portfolio', 'about', 'pricing', 'calculator', 'reviews', 'process', 'contacts'];
+      const links = document.querySelectorAll('.nav-links a');
+      let current = '';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 100) current = id;
+      });
+      links.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current || (current === 'hero-section' && a.getAttribute('href') === '#services'));
+      });
+    });
+
+    /* ── Chip select ── */
+    function selChip(el) {
+      el.closest('.chips').querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+      el.classList.add('sel');
+    }
+
+    /* ── Filter tabs ── */
+    function setFilter(el, cat) {
+      el.closest('.filters').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    /* ── Calculator ── */
+    function calcTotal() {
+      const area = parseInt(document.getElementById('areaRange').value);
+      document.getElementById('areaDisp').textContent = area + ' м²';
+      document.getElementById('bkArea').textContent = area + ' м²';
+
+      // determine rate from selected type chip
+      const typeEl = document.querySelector('#typeChips .chip.sel');
+      const type = typeEl ? typeEl.textContent.trim() : 'Капітальний';
+      const rateMap = { 'Косметичний': 450, 'Капітальний': 850, 'Преміум': 1500 };
+      const rate = rateMap[type] || 850;
+
+      const base = area * rate;
+      const extras = {
+        'Дизайн-проєкт': Math.round(area * 50),
+        'Електрика': Math.round(area * 38),
+        'Сантехніка': Math.round(area * 12),
+        'Кухня під ключ': 8000,
+        'Вбудовані меблі': 12000,
+        'Тепла підлога': Math.round(area * 30),
+      };
+      let extraTotal = 0;
+      document.querySelectorAll('.toggle-chip.on').forEach(chip => {
+        const key = chip.textContent.replace('✓', '').trim();
+        if (extras[key]) extraTotal += extras[key];
+      });
+      const total = base + extraTotal;
+
+      document.getElementById('bkBase').textContent = base.toLocaleString('uk') + ' грн';
+      document.getElementById('totalVal').textContent = total.toLocaleString('uk');
+      document.getElementById('totalRange').textContent =
+        'від ' + Math.round(total * .9).toLocaleString('uk') + ' до ' + Math.round(total * 1.2).toLocaleString('uk') + ' грн';
+
+      const weeks = area < 40 ? '2–3' : area < 80 ? '4–6' : area < 150 ? '6–10' : '10–16';
+      document.getElementById('tlEstimate').textContent = weeks + ' тижнів';
+    }
+
+    // init
+    calcTotal();
+  </script>
+</body>
+
+</html>
