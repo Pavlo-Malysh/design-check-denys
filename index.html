@@ -1,28 +1,420 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дизайн проєкти</title>
+  <title>TDM BUD — Ремонт квартир під ключ у Чернівцях</title>
+  <meta name="description" content="TDM BUD — комплексний ремонт квартир, будинків та комерційних приміщень під ключ у Чернівцях. Гарантія 10 років. Фіксована ціна. Безкоштовний кошторис!">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div>
-    <a class="backBtn" href=".//design1.html">Дизайн №1</a>
-    <a class="backBtn" href=".//design2.html">Дизайн №2</a>
-    <a class="backBtn" href="./tdmbud_website.html">Дизайн №3</a>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">TDM BUD <em>·</em> CHERNIVTSI</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Про нас</a></li>
+        <li><a href="#steps">Як ми працюємо</a></li>
+        <li><a href="#process">Процес</a></li>
+        <li><a href="#works">Роботи</a></li>
+        <li><a href="#contacts">Контакти</a></li>
+      </ul>
+      <button class="nav-cta" onclick="openModal()">Отримати кошторис</button>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=85" alt="Ремонт вітальні">
+    </div>
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=85" alt="Ремонт кухні">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1600&q=85" alt="Ремонт спальні">
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Чернівці та область</div>
+      <h1>Комплексний ремонт<br>квартир <strong>та будинків</strong><br>під ключ</h1>
+      <div class="hero-actions">
+        <button class="btn-accent" onclick="openModal()">Безкоштовний кошторис</button>
+        <a class="btn-ghost" href="#process">Дивитись процес</a>
+        <div class="hero-stats">
+          <div class="hs"><div class="hs-n">100+</div><div class="hs-l">Об'єктів</div></div>
+          <div class="hs"><div class="hs-n">10 р.</div><div class="hs-l">Гарантія</div></div>
+          <div class="hs"><div class="hs-n">90%</div><div class="hs-l">Задоволених клієнтів</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dots">
+      <div class="hero-dot" onclick="goSlide(0)"></div>
+      <div class="hero-dot active" onclick="goSlide(1)"></div>
+      <div class="hero-dot" onclick="goSlide(2)"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="tick-item">Дизайн-проєкт</span>
+      <span class="tick-item">Чорнова обробка</span>
+      <span class="tick-item">Чистова обробка</span>
+      <span class="tick-item">Здача обʼєкта</span>
+      <span class="tick-item">Гарантія на виконані роботи</span>
+      <span class="tick-item">Фіксована ціна</span>
+      <span class="tick-item">Фото-звіт щотижня</span>
+      <span class="tick-item">Власна бригада</span>
+      <span class="tick-item">Дизайн-проєкт</span>
+      <span class="tick-item">Чорнова обробка</span>
+      <span class="tick-item">Чистова обробка</span>
+      <span class="tick-item">Здача обʼєкта</span>
+      <span class="tick-item">Гарантія на виконані роботи</span>
+      <span class="tick-item">Фіксована ціна</span>
+      <span class="tick-item">Фото-звіт щотижня</span>
+      <span class="tick-item">Власна бригада</span>
+    </div>
   </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="sec-light">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="sec-label">Про нас</div>
+          <h2>Ми не просто будуємо.<br>Ми створюємо.</h2>
+          <p>TDM BUD — це команда професіоналів, яка спеціалізується на комплексному ремонті квартир, будинків та комерційних приміщень під ключ в м. Чернівці та області. Кожен проєкт для нас — це можливість створити простір в якому хочеться жити.</p>
+          <p>Ми працюємо з найкращими матеріалами, використовуємо перевірені технології та приділяємо увагу кожній деталі. Від першої зустрічі до здачі ключів — ви завжди знаєте, на якому етапі ваш проєкт.</p>
+        </div>
+        <div class="about-cards">
+          <div class="about-card"><h3>Власна бригада</h3><p>Жодних субпідрядів — за якість відповідаємо ми</p></div>
+          <div class="about-card"><h3>Фіксована ціна</h3><p>Кошторис затверджується до початку робіт</p></div>
+          <div class="about-card"><h3>Дизайн проєкт</h3><p>Ергономіка, комфорт і увага до кожної деталі</p></div>
+          <div class="about-card"><h3>Прозорий процес</h3><p>Фото-звіти та доступ на обʼєкт 24/7</p></div>
+        </div>
+      </div>
+
+      <div class="milestones-wrap">
+        <div class="sec-label">Історія</div>
+        <h2>Наш шлях</h2>
+        <div class="milestones">
+          <div class="ms"><div class="ms-year">2019</div><div class="ms-title">Заснування TDM BUD</div><div class="ms-desc">Перша власна бригада, перші обʼєкти у Чернівцях.</div></div>
+          <div class="ms"><div class="ms-year">2021</div><div class="ms-title">Запуск дизайн-відділу</div><div class="ms-desc">Власні дизайнери: візуалізація та специфікації матеріалів.</div></div>
+          <div class="ms"><div class="ms-year">2022</div><div class="ms-title">50-й обʼєкт зданий</div><div class="ms-desc">Виходимо на повний цикл — від демонтажу до меблювання.</div></div>
+          <div class="ms"><div class="ms-year">2024</div><div class="ms-title">Преміум-сегмент</div><div class="ms-desc">Проєкти підвищеної складності та авторський нагляд.</div></div>
+          <div class="ms"><div class="ms-year">2025</div><div class="ms-title">100+ проєктів</div><div class="ms-desc">Квартири, будинки та комерційні приміщення по області.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section id="steps" class="sec-deep">
+    <div class="container">
+      <div class="steps-head">
+        <div>
+          <div class="sec-label">Як ми працюємо</div>
+          <h2>6 кроків до вашого<br>нового дому</h2>
+        </div>
+        <p>Чіткий план, фіксований бюджет, жодних сюрпризів. Ви завжди знаєте, на якому етапі проєкт. Ми ведемо від першого дзвінка до новосілля.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step light">
+          <div class="step-top"><div class="step-icon">✆</div><div class="step-num">01</div></div>
+          <div class="step-title">Перший дзвінок</div>
+          <div class="step-desc">Обговорюємо задачу, площу та побажання. Домовляємось про безкоштовний виїзд на замір.</div>
+          <div class="step-note">Безкоштовно</div>
+        </div>
+        <div class="step dark">
+          <div class="step-top"><div class="step-icon">✎</div><div class="step-num">02</div></div>
+          <div class="step-title">Дизайн і візуалізація</div>
+          <div class="step-desc">Готуємо планування, 3D-візуалізацію та специфікацію матеріалів. Ви бачите результат до старту робіт.</div>
+          <div class="step-note">5–10 днів</div>
+        </div>
+        <div class="step light">
+          <div class="step-top"><div class="step-icon">§</div><div class="step-num">03</div></div>
+          <div class="step-title">Кошторис і договір</div>
+          <div class="step-desc">Складаємо детальний кошторис. Ціна і терміни фіксуються в офіційному договорі — без доплат.</div>
+          <div class="step-note">Фіксована ціна</div>
+        </div>
+        <div class="step dark">
+          <div class="step-top"><div class="step-icon">⚒</div><div class="step-num">04</div></div>
+          <div class="step-title">Купівля матеріалів</div>
+          <div class="step-desc">Закуповуємо та доставляємо матеріали за специфікацією. Всі чеки та звіти — у вас на руках.</div>
+          <div class="step-note">Прозоро</div>
+        </div>
+        <div class="step light">
+          <div class="step-top"><div class="step-icon">⚙</div><div class="step-num">05</div></div>
+          <div class="step-title">Виконання робіт</div>
+          <div class="step-desc">Працює власна бригада за графіком. Щотижня надсилаємо фото-звіт, доступ на обʼєкт — у будь-який час.</div>
+          <div class="step-note">Фото-звіт щотижня</div>
+        </div>
+        <div class="step dark">
+          <div class="step-top"><div class="step-icon">✓</div><div class="step-num">06</div></div>
+          <div class="step-title">Здача та гарантія</div>
+          <div class="step-desc">Прибирання, перевірка всіх систем, підписання акту. Видаємо письмовий гарантійний лист.</div>
+          <div class="step-note">Гарантія 10 років</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / TIMELINE -->
+  <section id="process" class="sec-dark">
+    <div class="container">
+      <div class="sec-label">Реальний об'єкт</div>
+      <h2>Від голих стін<br>до готової квартири</h2>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-week">Тиждень<br>1</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Замір та дизайн-проєкт</div>
+            <div class="tl-desc">Виїжджаємо на обʼєкт, знімаємо розміри, обговорюємо планування. Готуємо 3D-візуалізацію і специфікацію матеріалів.</div>
+            <div class="tl-badge">Безкоштовно</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week">Тиждень<br>2–3</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Чорнова обробка</div>
+            <div class="tl-desc">Демонтаж, стяжка підлоги, штукатурка стін, перегородки. Розводка електрики та водопостачання за проєктом.</div>
+            <div class="tl-photos">
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=260&q=75" alt="Чорнова обробка"></div>
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=260&q=75" alt="Стяжка підлоги"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week">Тиждень<br>4–7</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Чистова обробка</div>
+            <div class="tl-desc">Плитка, підлогові покриття, малярні роботи, встановлення дверей, сантехніки та освітлення.</div>
+            <div class="tl-photos">
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=260&q=75" alt="Чистова обробка"></div>
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=260&q=75" alt="Спальня"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week">Тиждень<br>8</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Здача обʼєкта</div>
+            <div class="tl-desc">Прибирання, фінальна перевірка всіх систем. Підписуємо акт і видаємо гарантійний лист.</div>
+            <div class="tl-photos">
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=260&q=75" alt="Готова квартира"></div>
+              <div class="tl-photo"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=260&q=75" alt="Вітальня"></div>
+            </div>
+            <div class="tl-badge">Гарантія 10 років</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works" class="sec-light">
+    <div class="container">
+      <div class="works-head">
+        <div>
+          <div class="sec-label">Портфоліо</div>
+          <h2>Наші роботи</h2>
+        </div>
+        <a class="works-link" onclick="openModal()">Хочу так само →</a>
+      </div>
+      <div class="works-grid">
+        <div class="work"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80" alt="Санвузол"><div class="work-label">Санвузол · квартира на Небесної Сотні</div></div>
+        <div class="work"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80" alt="Кухня"><div class="work-label">Кухня · новобудова, ЖК Центральний</div></div>
+        <div class="work"><img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&q=80" alt="Ванна кімната"><div class="work-label">Ванна кімната · будинок під Чернівцями</div></div>
+        <div class="work"><img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=80" alt="Кухня-студія"><div class="work-label">Кухня-студія · вул. Головна</div></div>
+        <div class="work"><img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80" alt="Спальня"><div class="work-label">Спальня · квартира на Кобилянській</div></div>
+        <div class="work"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Вітальня"><div class="work-label">Вітальня · квартира на Калинівській</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="sec-deep">
+    <div class="container">
+      <div class="sec-label">Довіра</div>
+      <h2>Реальні відгуки</h2>
+      <div class="reviews-grid">
+        <div class="review-slot"><div class="rs-1">скріншот відгуку</div><div class="rs-2">відгук 1 · Viber</div></div>
+        <div class="review-slot"><div class="rs-1">скріншот відгуку</div><div class="rs-2">відгук 2 · Telegram</div></div>
+        <div class="review-slot"><div class="rs-1">скріншот відгуку</div><div class="rs-2">відгук 3 · Google Maps</div></div>
+      </div>
+      <p class="reviews-note">Сюди додамо скріншоти реальних відгуків клієнтів (Viber / Telegram / Google Maps).</p>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts" class="sec-light">
+    <div class="container contacts-grid">
+      <div>
+        <div class="sec-label">Зв'язатися з нами</div>
+        <h2>Контакти</h2>
+        <div class="contact-row">
+          <div class="contact-key">Телефон</div>
+          <div class="contact-val">
+            <a href="tel:+380970000000">+380 97 000 00 00</a>
+            <div class="contact-sub">Пн–Сб, 9:00–19:00</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-key">Email</div>
+          <div class="contact-val">
+            <a href="mailto:info@tdmbud.ua">info@tdmbud.ua</a>
+            <div class="contact-sub">Відповідаємо протягом дня</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-key">Адреса</div>
+          <div class="contact-val">
+            <strong>м. Чернівці</strong>
+            <div class="contact-sub">Виїзд на замір по місту — безкоштовно</div>
+          </div>
+        </div>
+        <div class="map-slot">мапа / Google Maps embed</div>
+      </div>
+      <div class="form-card">
+        <div id="pageForm">
+          <div class="form-eyebrow">Безкоштовно</div>
+          <div class="form-title">Залишити заявку</div>
+          <div class="form-sub">Залиште контакти — зв'яжемось протягом години в будні і обговоримо ваш проєкт.</div>
+          <div class="field">
+            <label for="fName">Ваше ім'я</label>
+            <input type="text" id="fName" placeholder="Наприклад, Олена" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="fPhone">Телефон</label>
+            <input type="tel" id="fPhone" placeholder="+380 XX XXX XX XX" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="fMsg">Коментар</label>
+            <textarea id="fMsg" rows="3" placeholder="Площа, тип ремонту, побажання…"></textarea>
+          </div>
+          <button class="form-submit" onclick="submitPageForm()">Надіслати заявку →</button>
+          <div class="form-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних</div>
+        </div>
+        <div class="form-success" id="pageSuccess">
+          <div class="success-icon">✓</div>
+          <h3>Дякуємо!</h3>
+          <p>Ми отримали вашу заявку і зв'яжемось<br>з вами найближчим часом.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">TDM BUD <em>·</em> CHERNIVTSI</div>
+      <p>© 2026 Всі права захищені</p>
+      <p>Ремонт квартир · Дизайн-проєкт · Новобудови · Чернівці</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING BUTTON -->
+  <button class="float-btn" onclick="openModal()" title="Зв'язатись з нами">✆</button>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal()" aria-label="Закрити">✕</button>
+      <div id="modalForm">
+        <div class="form-eyebrow">Безкоштовно</div>
+        <div class="form-title">Отримати кошторис</div>
+        <div class="form-sub">Залиште контакти — зв'яжемось протягом години і обговоримо ваш проєкт.</div>
+        <div class="field">
+          <label for="mName">Ваше ім'я</label>
+          <input type="text" id="mName" placeholder="Наприклад, Олена" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="mPhone">Телефон</label>
+          <input type="tel" id="mPhone" placeholder="+380 XX XXX XX XX" autocomplete="tel">
+        </div>
+        <button class="form-submit" onclick="submitModal()">Надіслати заявку →</button>
+        <div class="form-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних</div>
+      </div>
+      <div class="form-success" id="modalSuccess">
+        <div class="success-icon">✓</div>
+        <h3>Дякуємо!</h3>
+        <p>Ми отримали вашу заявку і зв'яжемось<br>з вами найближчим часом.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Burger
+    document.getElementById('burger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Hero slider
+    let current = 1;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    function goSlide(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = n;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+    setInterval(() => goSlide((current + 1) % slides.length), 5000);
+
+    // Modal
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // Forms (front-end only: показує success; підключіть свій бекенд у submit-функціях)
+    function validate(nameEl, phoneEl) {
+      const ok = nameEl.value.trim() && phoneEl.value.trim();
+      nameEl.classList.toggle('err', !nameEl.value.trim());
+      phoneEl.classList.toggle('err', !phoneEl.value.trim());
+      return ok;
+    }
+    function submitModal() {
+      const n = document.getElementById('mName'), p = document.getElementById('mPhone');
+      if (!validate(n, p)) return;
+      document.getElementById('modalForm').style.display = 'none';
+      document.getElementById('modalSuccess').classList.add('visible');
+      setTimeout(() => {
+        closeModal();
+        setTimeout(() => {
+          document.getElementById('modalForm').style.display = 'block';
+          document.getElementById('modalSuccess').classList.remove('visible');
+          n.value = ''; p.value = '';
+        }, 400);
+      }, 2600);
+    }
+    function submitPageForm() {
+      const n = document.getElementById('fName'), p = document.getElementById('fPhone');
+      if (!validate(n, p)) return;
+      document.getElementById('pageForm').style.display = 'none';
+      document.getElementById('pageSuccess').classList.add('visible');
+    }
+  </script>
 </body>
-
-<style>
-  .backBtn {
-    color: red;
-    background-color: yellow;
-    width: 60px;
-    height: 25px;
-    padding: 10px 25px;
-  }
-</style>
-
 </html>
